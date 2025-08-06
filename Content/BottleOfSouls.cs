@@ -4,7 +4,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ThoriumMod;
 using ThoriumMod.Items;
-using ThoriumMod.Projectiles;
 using ThoriumMod.Projectiles.Healer;
 
 namespace BardCompat.Content;
@@ -18,10 +17,10 @@ public class BottleOfSouls : ThoriumItem
 
 		Item.DamageType = ThoriumDamageBase<HealerTool>.Instance;
 		Item.noMelee = true;
-		Item.mana = 35;
+		Item.mana = 25;
 
-		Item.useTime = 10;
-		Item.useAnimation = 2;
+		Item.useTime = 2;
+		Item.useAnimation = 10;
 		Item.useStyle = ItemUseStyleID.HoldUp;
 		Item.autoReuse = true;
 
@@ -36,7 +35,7 @@ public class BottleOfSouls : ThoriumItem
 
 	public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) {
 		type = Main.rand.NextBool() ? ModContent.ProjectileType<DamagingSoul>() : ModContent.ProjectileType<HealingSoul>();
-		velocity = new Vector2(0, -10).RotatedBy(Main.rand.NextFloat(-.1f, .1f));
+		velocity = new Vector2(0, -10).RotatedBy(Main.rand.NextFloat(-.3f, .3f));
 		damage = 1;
 	}
 }
@@ -58,10 +57,15 @@ class DamagingSoul : HomingPro {
 		Projectile.timeLeft = 1000;
 		Projectile.friendly = true;
 		Projectile.penetrate = 1;
+		Projectile.tileCollide = false;
+	}
+
+	public override void SafeAI() {
+		Projectile.rotation = Projectile.velocity.ToRotation() - rotationOffset;
 	}
 
 	public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
-		target.AddBuff(BuffID.ShadowFlame, 180);
+		target.AddBuff(BuffID.ShadowFlame, ShadowflameDuration);
 	}
 }
 
@@ -76,6 +80,11 @@ class HealingSoul : HomingPro {
 		Projectile.aiStyle = -1;
 		Projectile.timeLeft = 1000;
 		Projectile.hostile = true;
+		Projectile.tileCollide = false;
+	}
+
+	public override void SafeAI() {
+		Projectile.rotation = Projectile.velocity.ToRotation() - rotationOffset;
 	}
 
 	public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers) {
