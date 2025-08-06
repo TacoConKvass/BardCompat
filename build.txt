@@ -1,0 +1,4 @@
+displayName = bc
+author = meee
+version = 0.1
+weakReferences = ThoriumMod, CalamityMod

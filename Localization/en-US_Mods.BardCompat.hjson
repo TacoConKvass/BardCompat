@@ -1,0 +1,22 @@
+Items: {
+	ForeverHungry: {
+		DisplayName: Forever Hungry
+		Tooltip: ""
+	}
+
+	AcidBelcher: {
+		DisplayName: Acid Belcher
+		Tooltip: ""
+	}
+
+	BottleOfSouls: {
+		DisplayName: Bottle Of Souls
+		Tooltip: ""
+	}
+}
+
+Projectiles: {
+	BouncingHungry.DisplayName: Bouncing Hungry
+	DamagingSoul.DisplayName: Damaging Soul
+	HealingSoul.DisplayName: Healing Soul
+}
