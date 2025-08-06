@@ -9,7 +9,7 @@
 
 	<!-- References -->
     <ItemGroup>
-        <Reference Include="ThoriumMod.dll" />
-        <Reference Include="../ModAssemblies/CalamityMod.dll" />
+        <Reference Include="deps/ThoriumMod.dll" />
+        <Reference Include="deps/CalamityMod.dll" />
     </ItemGroup>
 </Project>
