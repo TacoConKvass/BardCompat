@@ -13,10 +13,17 @@ Items: {
 		DisplayName: Bottle Of Souls
 		Tooltip: ""
 	}
+
+	NeonRipper: {
+		DisplayName: Neon Ripper
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
 	BouncingHungry.DisplayName: Bouncing Hungry
 	DamagingSoul.DisplayName: Damaging Soul
 	HealingSoul.DisplayName: Healing Soul
+	Nanodroid.DisplayName: Nanodroid
+	NeonRipperProjectile.DisplayName: Neon Ripper Projectile
 }
