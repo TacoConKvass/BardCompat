@@ -48,6 +48,8 @@ public class ForeverHungry : BardItem {
 public class BouncingHungry : BardProjectile {
 	public override string Texture => $"Terraria/Images/NPC_{NPCID.TheHungry}";
 
+	public override BardInstrumentType InstrumentType => BardInstrumentType.Wind;
+
 	public float BounceDampenX = .8f;
 	public float BounceDampenY = .8f;
 	public int TileBounces = 2;
