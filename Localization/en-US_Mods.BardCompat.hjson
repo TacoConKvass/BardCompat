@@ -18,6 +18,11 @@ Items: {
 		DisplayName: Neon Ripper
 		Tooltip: ""
 	}
+
+	PlasmaOcarina: {
+		DisplayName: Plasma Ocarina
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
