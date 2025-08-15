@@ -30,7 +30,7 @@ public class PlasmaOcarina : BardItem {
 		Item.useTime = 20;
 		Item.useAnimation = 20;
 		Item.autoReuse = true;
-		Item.useStyle = ItemUseStyleID.HoldUp;
+		Item.useStyle = ItemUseStyleID.Shoot;
 
 		Item.damage = 10;
 		Item.knockBack = 4f;
