@@ -54,7 +54,7 @@ class DamagingSoul : HomingPro {
 	public override void SetDefaults() {
 		Projectile.Size = new Vector2(24, 30);
 		Projectile.aiStyle = -1;
-		Projectile.timeLeft = 1000;
+		Projectile.timeLeft = 600;
 		Projectile.friendly = true;
 		Projectile.penetrate = 1;
 		Projectile.tileCollide = false;
@@ -78,7 +78,7 @@ class HealingSoul : HomingPro {
 	public override void SetDefaults() {
 		Projectile.Size = new Vector2(24, 30);
 		Projectile.aiStyle = -1;
-		Projectile.timeLeft = 1000;
+		Projectile.timeLeft = 600;
 		Projectile.hostile = true;
 		Projectile.tileCollide = false;
 	}
