@@ -33,6 +33,11 @@ Items: {
 		DisplayName: Staff
 		Tooltip: ""
 	}
+
+	SandSlasher: {
+		DisplayName: Sand Slasher
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -43,4 +48,5 @@ Projectiles: {
 	NeonRipperProjectile.DisplayName: Neon Ripper Projectile
 	Magic.HealingLightningArc.DisplayName: Healing Lightning Arc
 	Staff_Projectile.DisplayName: Staff_ Projectile
+	SandSlasher_Projectile.DisplayName: Sand Slasher_ Projectile
 }
