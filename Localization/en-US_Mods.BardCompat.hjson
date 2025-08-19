@@ -23,6 +23,16 @@ Items: {
 		DisplayName: Plasma Ocarina
 		Tooltip: ""
 	}
+
+	Defibrillanator: {
+		DisplayName: Defibrillanator
+		Tooltip: ""
+	}
+
+	Staff: {
+		DisplayName: Staff
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -31,4 +41,6 @@ Projectiles: {
 	HealingSoul.DisplayName: Healing Soul
 	Nanodroid.DisplayName: Nanodroid
 	NeonRipperProjectile.DisplayName: Neon Ripper Projectile
+	Magic.HealingLightningArc.DisplayName: Healing Lightning Arc
+	Staff_Projectile.DisplayName: Staff_ Projectile
 }
