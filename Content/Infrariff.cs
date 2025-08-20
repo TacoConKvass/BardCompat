@@ -120,7 +120,7 @@ public class InfrariffProjectile : BardProjectile {
 			}
 		}
 		else {
-			Projectile.NewProjectile(source, Projectile.Center, Projectile.velocity * 8, ModContent.ProjectileType<LaserDamageProjectile>(), damage, knockback);
+			Projectile.NewProjectile(source, Projectile.Center, Projectile.velocity * 8, ModContent.ProjectileType<InfrariffLaser>(), damage, knockback);
 		}
 	}
 
@@ -198,7 +198,7 @@ public class ColoredExplosion : ModProjectile {
 	}
 }
 
-public class LaserDamageProjectile : BardProjectile {
+public class InfrariffLaser : BardProjectile {
 	public override string Texture => $"Terraria/Images/Item_{ItemID.Zenith}"; // Can be whatever is valid, it's not gonna get drawn anyways
 
 	public override BardInstrumentType InstrumentType => BardInstrumentType.String;
