@@ -198,10 +198,12 @@ public class ColoredExplosion : ModProjectile {
 	}
 }
 
-public class LaserDamageProjectile : ModProjectile {
+public class LaserDamageProjectile : BardProjectile {
 	public override string Texture => $"Terraria/Images/Item_{ItemID.Zenith}"; // Can be whatever is valid, it's not gonna get drawn anyways
 
-	public override void SetDefaults() {
+	public override BardInstrumentType InstrumentType => BardInstrumentType.String;
+
+	public override void SetBardDefaults() {
 		Projectile.Size = new Vector2(24, 24);
 		Projectile.timeLeft = 180;
 		Projectile.friendly = true;
