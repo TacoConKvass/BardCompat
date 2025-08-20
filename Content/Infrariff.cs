@@ -16,6 +16,9 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria.GameContent;
 using System.IO;
+using Mono.Cecil;
+using static System.Net.Mime.MediaTypeNames;
+using Steamworks;
 
 namespace BardCompat.Content;
 
@@ -72,6 +75,9 @@ public class InfrariffProjectile : BardProjectile {
 		Projectile.timeLeft = 50;
 		Projectile.friendly = true;
 		Projectile.tileCollide = false;
+		Projectile.penetrate = -1;
+		Projectile.usesLocalNPCImmunity = true;
+		Projectile.localNPCHitCooldown = -1;
 	}
 
 	// Code below adapted/lifted from Calamity
@@ -87,12 +93,6 @@ public class InfrariffProjectile : BardProjectile {
 
 	public override void AI() {
 		if (Projectile.timeLeft > 5) Projectile.ai[0] += MathHelper.ToRadians(1 * Projectile.ai[1]);
-		else if (Projectile.timeLeft == 1) {
-			for (int i = 0; i < 7; i++) {
-				Vector2 position = Projectile.Center + Projectile.velocity * (i + 1) * 6 * 16;
-				Projectile.NewProjectile(Projectile.GetSource_FromAI(), position, Vector2.Zero, ProjectileID.Flames, Projectile.damage, Projectile.knockBack, ai0: 5, ai1: 5, ai2: 5);
-			}
-		}
 		Projectile.Center = Main.player[Projectile.owner].Center + Vector2.UnitX.RotatedBy(Projectile.ai[0]) * 8;
 		Projectile.velocity = Projectile.Center.DirectionFrom(Main.player[Projectile.owner].Center);
 		Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
@@ -107,6 +107,21 @@ public class InfrariffProjectile : BardProjectile {
 		num4 /= 3f;
 
 		Projectile.localAI[1] = MathHelper.Lerp(Projectile.localAI[1], num4, 0.5f);
+
+		IEntitySource source = Projectile.GetSource_FromAI();
+		int damage = Projectile.damage;
+		float knockback = Projectile.knockBack;
+		if (Projectile.timeLeft == 1) {
+			for (int i = 0; i < 7; i++) {
+				Vector2 position = Projectile.Center + Projectile.velocity * (i + 1) * 6 * 16;
+				if (Projectile.Center.Distance(position) > Projectile.localAI[1]) { break; }
+				Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ColoredExplosion>(), damage, knockback, ai0: 0x5012E0, ai2: 1);
+				Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ColoredExplosion>(), damage, knockback, ai0: 0x7C55D9, ai2: .6f);
+			}
+		}
+		else {
+			Projectile.NewProjectile(source, Projectile.Center, Projectile.velocity * 8, ModContent.ProjectileType<LaserDamageProjectile>(), damage, knockback);
+		}
 	}
 
 	Texture2D texture2D => TextureAssets.Projectile[Type].Value;
@@ -140,6 +155,65 @@ public class InfrariffProjectile : BardProjectile {
 
 		Vector2 position2 = center - Main.screenPosition;
 		Main.spriteBatch.Draw(texture2D3, position2, null, color, Projectile.rotation + MathHelper.Pi, texture2D3.Frame().Center() + (Vector2.UnitY * 24), Projectile.scale, SpriteEffects.None, 0f);
+		return false;
+	}
+}
+
+public class ColoredExplosion : ModProjectile {
+	public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.Flames}";
+
+	// Pass in a hexcode of the color as an argument for NewProjectile/Direct for the value of ai0, like this
+	// ai2 is the projectile's scale
+	// Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<ColoredExplosion>(), damage, knockback, ai0: 0x5012E0, ai2: 1);
+	public uint ColorData => (uint)Projectile.ai[0];
+
+	public ref float Timer => ref Projectile.ai[1];
+
+	public override void SetDefaults() {
+		Projectile.Size = new Vector2(64, 64);
+		Projectile.timeLeft = 24;
+		Projectile.friendly = true;
+		Projectile.tileCollide = false;
+		Projectile.penetrate = -1;
+	}
+
+	public override void AI() {
+		Timer++;
+		Projectile.rotation = MathHelper.ToRadians(1 * Timer);
+		Projectile.scale = Projectile.ai[2];
+
+		if (Projectile.timeLeft > 20) Lighting.AddLight(Projectile.Center, 5);
+	}
+
+	public override bool PreDraw(ref Color lightColor) {
+		Texture2D texture = TextureAssets.Projectile[Type].Value;
+		Vector2 position = Projectile.Center - Main.screenPosition;
+		int frame_height = texture.Height / 7;
+		Rectangle source_rect = new Rectangle(0, (int)(((Timer % 24) / 3) - 1) * frame_height, texture.Width, frame_height);
+
+		Color color = new Color();
+		color.PackedValue = ColorData;
+		Main.EntitySpriteDraw(texture, position, source_rect, color, Projectile.rotation, source_rect.Size() / 2, Projectile.scale, SpriteEffects.None);
+		return false;
+	}
+}
+
+public class LaserDamageProjectile : ModProjectile {
+	public override string Texture => $"Terraria/Images/Item_{ItemID.Zenith}"; // Can be whatever is valid, it's not gonna get drawn anyways
+
+	public override void SetDefaults() {
+		Projectile.Size = new Vector2(24, 24);
+		Projectile.timeLeft = 180;
+		Projectile.friendly = true;
+		Projectile.extraUpdates = 60;
+		Projectile.tileCollide = true;
+		Projectile.penetrate = -1;
+
+		Projectile.aiStyle = ProjAIStyleID.Arrow;
+		AIType = ProjectileID.Bullet;
+	}
+
+	public override bool PreDraw(ref Color lightColor) {
 		return false;
 	}
 }

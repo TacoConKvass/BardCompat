@@ -55,4 +55,6 @@ Projectiles: {
 	Staff_Projectile.DisplayName: Staff_ Projectile
 	SandSlasher_Projectile.DisplayName: Sand Slasher_ Projectile
 	InfrariffProjectile.DisplayName: Infrariff Projectile
+	ColoredExplosion.DisplayName: Colored Explosion
+	LaserDamageProjectile.DisplayName: Laser Damage Projectile
 }
