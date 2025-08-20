@@ -32,7 +32,7 @@ public class NeonRipperProjectile : ScythePro {
 
 	public override void SafeAI() {
 		Projectile.ai[0]++;
-		if (Projectile.ai[0] > 5) {
+		if (Main.myPlayer == Projectile.owner && Projectile.ai[0] > 5) {
 			Projectile.ai[0] = 0;
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.UnitX.RotatedByRandom(MathHelper.TwoPi) * 8, ModContent.ProjectileType<Nanodroid>(), Projectile.damage, 0);
 		}

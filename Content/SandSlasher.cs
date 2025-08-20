@@ -64,9 +64,11 @@ public class SandSlasher_Projectile : BardProjectile {
 	}
 
 	public override bool OnTileCollide(Vector2 oldVelocity) {
-		Projectile tornado = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ProjectileID.SandnadoFriendly, Projectile.damage, Projectile.knockBack);
-		tornado.timeLeft = 120;
-		tornado.netUpdate = true;
+		if (Main.myPlayer == Projectile.owner){
+			Projectile tornado = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ProjectileID.SandnadoFriendly, Projectile.damage, Projectile.knockBack);
+			tornado.timeLeft = 120;
+			tornado.netUpdate = true;
+		}
 
 		if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon) {
 			Projectile.velocity.X = -oldVelocity.X;

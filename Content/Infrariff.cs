@@ -111,16 +111,18 @@ public class InfrariffProjectile : BardProjectile {
 		IEntitySource source = Projectile.GetSource_FromAI();
 		int damage = Projectile.damage;
 		float knockback = Projectile.knockBack;
-		if (Projectile.timeLeft == 1) {
-			for (int i = 0; i < 7; i++) {
-				Vector2 position = Projectile.Center + Projectile.velocity * (i + 1) * 6 * 16;
-				if (Projectile.Center.Distance(position) > Projectile.localAI[1]) { break; }
-				Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ColoredExplosion>(), damage, knockback, ai0: 0x5012E0, ai2: 1);
-				Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ColoredExplosion>(), damage, knockback, ai0: 0x7C55D9, ai2: .6f);
+		if (Main.myPlayer == Projectile.owner){
+			if (Projectile.timeLeft == 1) {
+				for (int i = 0; i < 7; i++) {
+					Vector2 position = Projectile.Center + Projectile.velocity * (i + 1) * 6 * 16;
+					if (Projectile.Center.Distance(position) > Projectile.localAI[1]) { break; }
+					Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ColoredExplosion>(), damage, knockback, ai0: 0x5012E0, ai2: 1);
+					Projectile.NewProjectile(source, position, Vector2.Zero, ModContent.ProjectileType<ColoredExplosion>(), damage, knockback, ai0: 0x7C55D9, ai2: .6f);
+				}
 			}
-		}
-		else {
-			Projectile.NewProjectile(source, Projectile.Center, Projectile.velocity * 8, ModContent.ProjectileType<InfrariffLaser>(), damage, knockback);
+			else {
+				Projectile.NewProjectile(source, Projectile.Center, Projectile.velocity * 8, ModContent.ProjectileType<InfrariffLaser>(), damage, knockback);
+			}
 		}
 	}
 
