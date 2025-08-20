@@ -43,6 +43,11 @@ Items: {
 		DisplayName: Infrariff
 		Tooltip: ""
 	}
+
+	DeepseaTrident: {
+		DisplayName: Deepsea Trident
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -57,4 +62,6 @@ Projectiles: {
 	InfrariffProjectile.DisplayName: Infrariff Projectile
 	ColoredExplosion.DisplayName: Colored Explosion
 	LaserDamageProjectile.DisplayName: Laser Damage Projectile
+	DeepseaTrident_Projectile.DisplayName: Deepsea Trident_ Projectile
+	InfrariffLaser.DisplayName: Infrariff Laser
 }
